@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universidad de Medellín</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            display: block;
+            background-color: #e63946;
+            color: white;
+            padding: 15px;
+            margin: 10px auto;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            width: 80%;
+            max-width: 300px;
+        }
+        .button:hover {
+            background-color: #d62839;
+        }
+        .logo {
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        #imageContainer {
+            margin-top: 20px;
+            display: none; /* Ocultar inicialmente */
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Página de Bienvenida -->
+    <div class="container" id="welcomeContainer">
+        <img src="Logo_UdeMedellín.jpg" alt="Logo Universidad de Medellín" class="logo" width="100">
+        <h1>¡Bienvenido!</h1>
+        <a href="#" class="button" onclick="showLogin()">Ingresar como usuario</a>
+        <a href="#" class="button">Ingresar como administrador</a>
+    </div>
+
+    <!-- Página de Inicio de Sesión -->
+    <div class="container hidden" id="loginContainer">
+        <img src="Inicio_sesion.png" alt="Logo Universidad de Medellín" class="logo" width="100">
+        <h1>Iniciar sesión</h1>
+        <input type="text" placeholder="Usuario" id="username">
+        <input type="password" placeholder="Contraseña" id="password">
+        <button class="button" onclick="showImage()">Ingresar con Microsoft</button>
+        <button class="button" onclick="login()">Login</button>      
+        <p><a href="#">Olvidaste tu contraseña?</a></p>
+        <div class="error" id="errorMessage"></div> <!-- Mensaje de error -->
+    </div>
+
+    <div class="container hidden" id="resetPasswordContainer">
+        <img src="Logo_UdeMedellín.jpg" alt="Logo Universidad de Medellín" class="logo" width="100">
+        <h1>Restablecer Contraseña</h1>
+        <input type="email" placeholder="Ingresa tu correo electrónico" id="resetEmail">
+        <p>Enviaremos un link a tu correo electrónico para restablecer tu contraseña.</p>
+        <button class="button" onclick="sendResetLink()">Enviar</button>
+        <div class="error" id="resetErrorMessage"></div>
+    </div>
+
+    <!-- Contenedor de la Imagen -->
+    <div id="imageContainer">
+        <img src="microsoft.jpeg" alt="Imagen Microsoft" width="300"> 
+    </div>
+
+    <script>
+        // Usuarios y contraseñas predeterminados
+        const users = {
+            "ximena": "123",
+            "usuario2": "contraseña2",
+            "usuario3": "contraseña3"
+        };
+
+        function showLogin() {
+            document.getElementById('welcomeContainer').classList.add('hidden');
+            document.getElementById('loginContainer').classList.remove('hidden');
+            document.getElementById('imageContainer').style.display = 'none'; // Ocultar imagen al mostrar el login
+            document.getElementById('errorMessage').innerText = ''; // Limpiar mensaje de error
+        }
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Validar usuario y contraseña
+            if (users[username] && users[username] === password) {
+                alert(`Has iniciado sesión como ${username}`);
+                // Aquí puedes redirigir al usuario a otra página o mostrar la imagen
+               
+            } else {
+                errorMessage.innerText = 'Usuario o contraseña incorrectos.';
+            }
+        }
+
+        function showImage() {
+            document.getElementById('loginContainer').style.display = 'none'; // Ocultar el formulario de inicio de sesión
+            document.getElementById('imageContainer').style.display = 'block'; // Mostrar la imagen
+
+        }
+
+        function showResetPassword() {
+            document.getElementById('loginContainer').classList.add('hidden');
+            document.getElementById('resetPasswordContainer').classList.remove('hidden');
+            document.getElementById('resetErrorMessage').innerText = ''; // Limpiar mensaje de error
+        }
+    </script>
+
+</body>
+</html>
